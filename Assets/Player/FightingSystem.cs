@@ -12,24 +12,24 @@ public class FightingSystem : MonoBehaviour
     [SerializeField] private Command[] _commands;
     [SerializeField] private Animator _animator;
     private InputManager _inputManager;
-    private CommandBuffer _commandBuffer;
+    private InputCommandBuffer _commandBuffer;
+
     void Start()
     {
-        _inputManager = GetComponent<InputManager>();
-        _commandBuffer = new CommandBuffer();
-
+        _inputManager = gameObject.AddComponent<InputManager>();
+        _commandBuffer = new InputCommandBuffer();
         //イベント登録
         _inputManager.OnInputDetected += OnInputReceived;
-
         //デフォルトコマンド設定
         SetUpDefaultCommands();
     }
+
     void OnInputReceived(InputType input)
     {
-        var commandBuffer = new CommandBuffer();
-        commandBuffer.AddInput(input);
+        _commandBuffer.AddInput(input);
         CheckAllCommands();
     }
+
     void CheckAllCommands()
     {
         foreach (var command in _commands)
@@ -42,6 +42,7 @@ public class FightingSystem : MonoBehaviour
             }
         }
     }
+
     void ExecuteCommand(Command command)
     {
         Debug.Log($"コマンド発動: {command._name}");
@@ -50,6 +51,7 @@ public class FightingSystem : MonoBehaviour
             _animator.SetTrigger(command._animation);
         }
     }
+
     void SetUpDefaultCommands()
     {
         _commands = new Command[]
