@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class FightingSystem : MonoBehaviour
 {
@@ -56,6 +51,12 @@ public class FightingSystem : MonoBehaviour
     {
         _commands = new Command[]
         {
+            new Command
+            {
+                _name = "真空波動拳コマンド",
+                _inputs = new [] {InputType.Down, InputType.Right, InputType.Down, InputType.Right, InputType.Punch},
+                _animation = "SinkuHadoken"
+            },
             new Command
             {
                 _name = "波動拳コマンド",
