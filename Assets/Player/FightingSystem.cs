@@ -1,38 +1,33 @@
 using UnityEngine;
-
-
 public class FightingSystem : MonoBehaviour
 {
-    [Header("設定")]
-    [SerializeField] private Command[] _commands;
-    [SerializeField] private Animator _animator;
-    private InputManager _inputManager;
-    private InputCommandBuffer _commandBuffer;
+    [Header("プレイヤー設定")]
+    public PlayerID playerID;
+    public Animator animator;
+    public Command[] commands;
 
-    void Start()
+    private InputCommandBuffer _buffer;
+
+    public void Initialize()
     {
-        _inputManager = gameObject.AddComponent<InputManager>();
-        _commandBuffer = new InputCommandBuffer();
-        //イベント登録
-        _inputManager.OnInputDetected += OnInputReceived;
-        //デフォルトコマンド設定
+        _buffer = new InputCommandBuffer();
         SetUpDefaultCommands();
     }
 
-    void OnInputReceived(InputType input)
+    public void OnInputReceived(InputType input)
     {
-        _commandBuffer.AddInput(input);
+        _buffer.AddInput(input);
         CheckAllCommands();
     }
 
     void CheckAllCommands()
     {
-        foreach (var command in _commands)
+        foreach (var command in commands)
         {
-            if (_commandBuffer.CheckCommand(command._inputs))
+            if (_buffer.CheckCommand(command._inputs))
             {
                 ExecuteCommand(command);
-                _commandBuffer.Clear();
+                _buffer.Clear();
                 break;
             }
         }
@@ -40,16 +35,17 @@ public class FightingSystem : MonoBehaviour
 
     void ExecuteCommand(Command command)
     {
-        Debug.Log($"コマンド発動: {command._name}");
-        if (_animator != null)
+        Debug.Log($"Player{(int)playerID + 1} コマンド発動: {command._name}");
+
+        if (animator != null)
         {
-            _animator.SetTrigger(command._animation);
+            animator.SetTrigger(command._animation);
         }
     }
 
     void SetUpDefaultCommands()
     {
-        _commands = new Command[]
+        commands = new Command[]
         {
             new Command
             {
