@@ -8,12 +8,6 @@ public class RoundManager : MonoBehaviour
     private int _player1Wins = 0;
     private int _player2Wins = 0;
     [SerializeField] GameObject _matchEndUI;
-    
-    public void Start()
-    {
-        Debug.Log(_player1Wins);
-        Debug.Log(_player2Wins);
-    }
     public void OnRoundEnd(int WinPlayer)
     {
         if (WinPlayer == 1)
