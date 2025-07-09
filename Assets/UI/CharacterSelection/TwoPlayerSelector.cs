@@ -5,7 +5,10 @@ using TMPro;
 
 public class TwoPlayerSelector : MonoBehaviour
 {
-    public CharacterData[] characterList;
+    public CharacterData[] characterList => characterDatabase.characters;
+
+    [SerializeField]
+    private CharacterDatabase characterDatabase;
 
     // プレイヤー1用
     public Image player1Image;
@@ -66,6 +69,7 @@ public class TwoPlayerSelector : MonoBehaviour
     {
         PlayerPrefs.SetInt("Player1CharacterIndex", player1Index);
         PlayerPrefs.SetInt("Player2CharacterIndex", player2Index);
+        SelectDataManager.SetSelectData(player1Index, player2Index);
         SceneManager.LoadScene("GameScene");
     }
 }
