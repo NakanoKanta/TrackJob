@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 0
   m_EditorClassIdentifier: 
   characterName: miyamoto
-  characterImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  characterPrefab: {fileID: 0}
+  characterImage: {fileID: 913517118, guid: cc7be26b097b5374e929622fdbd66f7e, type: 3}
+  characterPrefab: {fileID: 2612977149256034233, guid: d0df2c73305e96840ac483b02d61fd66, type: 3}
