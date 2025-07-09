@@ -10,6 +10,13 @@ public enum InputType
 }
 
 [System.Serializable]
+public enum PlayerID
+{
+    Player1,
+    Player2
+}
+
+[System.Serializable]
 public struct InputData
 {
     public InputType _type;

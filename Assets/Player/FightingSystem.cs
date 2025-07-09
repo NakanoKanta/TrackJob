@@ -1,59 +1,58 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class FightingSystem : MonoBehaviour
 {
-    [Header("設定")]
-    [SerializeField] private Command[] _commands;
-    [SerializeField] private Animator _animator;
-    private InputManager _inputManager;
-    private CommandBuffer _commandBuffer;
-    void Start()
+    [Header("プレイヤー設定")]
+    public PlayerID playerID;
+    public Animator animator;
+    public Command[] commands;
+
+    private InputCommandBuffer _buffer;
+
+    public void Initialize()
     {
-        _inputManager = GetComponent<InputManager>();
-        _commandBuffer = new CommandBuffer();
-
-        //イベント登録
-        _inputManager.OnInputDetected += OnInputReceived;
-
-        //デフォルトコマンド設定
+        _buffer = new InputCommandBuffer();
         SetUpDefaultCommands();
     }
-    void OnInputReceived(InputType input)
+
+    public void OnInputReceived(InputType input)
     {
-        var commandBuffer = new CommandBuffer();
-        commandBuffer.AddInput(input);
+        _buffer.AddInput(input);
         CheckAllCommands();
     }
+
     void CheckAllCommands()
     {
-        foreach (var command in _commands)
+        foreach (var command in commands)
         {
-            if (_commandBuffer.CheckCommand(command._inputs))
+            if (_buffer.CheckCommand(command._inputs))
             {
                 ExecuteCommand(command);
-                _commandBuffer.Clear();
+                _buffer.Clear();
                 break;
             }
         }
     }
+
     void ExecuteCommand(Command command)
     {
-        Debug.Log($"コマンド発動: {command._name}");
-        if (_animator != null)
+        Debug.Log($"Player{(int)playerID + 1} コマンド発動: {command._name}");
+
+        if (animator != null)
         {
-            _animator.SetTrigger(command._animation);
+            animator.SetTrigger(command._animation);
         }
     }
+
     void SetUpDefaultCommands()
     {
-        _commands = new Command[]
+        commands = new Command[]
         {
+            new Command
+            {
+                _name = "真空波動拳コマンド",
+                _inputs = new [] {InputType.Down, InputType.Right, InputType.Down, InputType.Right, InputType.Punch},
+                _animation = "SinkuHadoken"
+            },
             new Command
             {
                 _name = "波動拳コマンド",
