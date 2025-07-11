@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoundManager : MonoBehaviour
 {
@@ -28,12 +29,13 @@ public class RoundManager : MonoBehaviour
         }
         else 
         {
-            Invoke("NextRound", 3f);
+            Invoke(nameof(NextRound), 3f);
         }
 
     }
     public void NextRound()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Next Round");
     }
     public void FinishRound(int Winner)
