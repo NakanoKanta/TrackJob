@@ -9,7 +9,5 @@ public class CharacterData : ScriptableObject
     public Sprite characterImage;
     //キャラのプレハブ
     public GameObject characterPrefab;
-    //キャラのHP
-    public string characterHP;
 
 }
