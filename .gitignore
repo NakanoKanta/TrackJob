@@ -100,3 +100,5 @@ InitTestScene*.unity*
 Packages/manifest.json
 Packages/packages-lock.json
 ProjectSettings/SceneTemplateSettings.json
+Assets/
+TestGame/
