@@ -29,9 +29,9 @@ public class InputManager : MonoBehaviour
         // 方向キー（2P）
         if (Input.GetKeyDown(KeyCode.I))
             OnInputDetected.Invoke(InputType.Up, PlayerID.Player2);
-        if (Input.GetKeyDown(KeyCode.J))
-            OnInputDetected.Invoke(InputType.Right, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.L))
+            OnInputDetected.Invoke(InputType.Right, PlayerID.Player2);
+        if (Input.GetKeyDown(KeyCode.J))
             OnInputDetected.Invoke(InputType.Left, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.K))
             OnInputDetected.Invoke(InputType.Down, PlayerID.Player2);
@@ -41,6 +41,5 @@ public class InputManager : MonoBehaviour
             OnInputDetected.Invoke(InputType.Punch, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.RightShift))
             OnInputDetected.Invoke(InputType.Guard, PlayerID.Player2);
-
     }
 }
