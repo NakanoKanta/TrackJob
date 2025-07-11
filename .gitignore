@@ -97,3 +97,27 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Assets/UI.meta
+Assets/Prefab/Player2.prefab
+Assets/Prefab/Player2.prefab.meta
+Assets/Scenes/CharacterSelection.unity
+Assets/Scenes/CharacterSelection.unity.meta
+Assets/Scenes/GameScene.unity
+Assets/Scenes/GameScene.unity.meta
+Assets/Scripts/Counter.cs
+Assets/Scripts/Counter.cs.meta
+Assets/Scripts/PlayerData.cs
+Assets/Scripts/PlayerData.cs.meta
+Assets/UI/CharacterSelection.meta
+Assets/UI/Effect.meta
+Assets/UI/GameUI.meta
+Assets/UI/CharacterSelection/samurai.asset
+Assets/UI/CharacterSelection/samurai.asset.meta
+Assets/UI/CharacterSelection/unknown.asset
+Assets/UI/CharacterSelection/unknown.asset.meta
+Assets/UI/Effect/132_20250710014819.png
+Assets/UI/Effect/132_20250710014819.png.meta
+Assets/UI/Effect/Particle System (3) 1.prefab
+Assets/UI/Effect/Particle System (3) 1.prefab.meta
+Assets/UI/Effect/SlashMaterial.mat
+Assets/UI/Effect/SlashMaterial.mat.meta
