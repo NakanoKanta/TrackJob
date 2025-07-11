@@ -5,7 +5,10 @@ using TMPro;
 
 public class TwoPlayerSelector : MonoBehaviour
 {
-    public CharacterData[] characterList;
+    public CharacterData[] characterList => characterDatabase.characters;
+
+    [SerializeField]
+    private CharacterDatabase characterDatabase;
 
     // プレイヤー1用
     public Image player1Image;
@@ -62,10 +65,27 @@ public class TwoPlayerSelector : MonoBehaviour
     }
 
     // OKボタンを押したとき（2人とも）
-    public void Confirm()
+    /*public void Confirm()
     {
         PlayerPrefs.SetInt("Player1CharacterIndex", player1Index);
         PlayerPrefs.SetInt("Player2CharacterIndex", player2Index);
+        SelectDataManager.SetSelectData(player1Index, player2Index);
+        SceneManager.LoadScene("GameScene");
+    }*/
+    public void Confirm()
+    {
+        // 選択したキャラのインデックスを保存
+        PlayerPrefs.SetInt("Player1CharacterIndex", player1Index);
+        PlayerPrefs.SetInt("Player2CharacterIndex", player2Index);
+
+        // プレイヤー情報として文字列でも保存（オプション：判定しやすくなる）
+        PlayerPrefs.SetString("Player1CharacterRole", "Player1");
+        PlayerPrefs.SetString("Player2CharacterRole", "Player2");
+
+        // セレクトマネージャーにも保存（別の保存方法）
+        SelectDataManager.SetSelectData(player1Index, player2Index);
+
+        // ゲームシーンに移動
         SceneManager.LoadScene("GameScene");
     }
 }
