@@ -6,6 +6,7 @@ public class AttackHitbox : MonoBehaviour
 {
     [SerializeField] int _damage = 0;
     private bool hasHit = false;
+    public float _invalidTime = 0.2f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +16,15 @@ public class AttackHitbox : MonoBehaviour
         {
             enemyHealth.TakeDamage(_damage);
             hasHit = true;
+            StartCoroutine(DisableHitboxTemporarily());
 
         }
+    }
+    private System.Collections.IEnumerator DisableHitboxTemporarily()
+    {
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(_invalidTime);
+        gameObject.SetActive(true);
+        hasHit = false;
     }
 }
