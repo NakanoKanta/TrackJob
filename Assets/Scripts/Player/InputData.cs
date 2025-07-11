@@ -1,5 +1,3 @@
-using UnityEditor.Experimental.GraphView;
-
 [System.Serializable]
 public enum InputType
 {
@@ -37,4 +35,3 @@ public struct Command
     public InputType[] _inputs;
     public string _animation;
 }
-

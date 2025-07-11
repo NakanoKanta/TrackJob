@@ -4,15 +4,11 @@ using UnityEngine;
 public class InputCommandBuffer
 {
     private List<InputData> _buffer = new List<InputData>();
-    private List<InputType> _inputTypes = new List<InputType>();
     private float _timeWindow = 1.0f;
     private int _maxSize = 8;
-    private bool _facingLeft;
+
     public void AddInput(InputType input)
-    { 
-        // 入力を向きに応じて変換してからバッファに追加
-        InputType ConvertInput = InputConverter.ConvertInput(input, _facingLeft);
-        _inputTypes.Add(ConvertInput);
+    {
         _buffer.Add(new InputData(input, Time.time));
         if (_buffer.Count > _maxSize)
         {

@@ -29,9 +29,9 @@ public class InputManager : MonoBehaviour
         // 方向キー（2P）
         if (Input.GetKeyDown(KeyCode.I))
             OnInputDetected.Invoke(InputType.Up, PlayerID.Player2);
-        if (Input.GetKeyDown(KeyCode.L))
-            OnInputDetected.Invoke(InputType.Right, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.J))
+            OnInputDetected.Invoke(InputType.Right, PlayerID.Player2);
+        if (Input.GetKeyDown(KeyCode.L))
             OnInputDetected.Invoke(InputType.Left, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.K))
             OnInputDetected.Invoke(InputType.Down, PlayerID.Player2);
@@ -41,23 +41,6 @@ public class InputManager : MonoBehaviour
             OnInputDetected.Invoke(InputType.Punch, PlayerID.Player2);
         if (Input.GetKeyDown(KeyCode.RightShift))
             OnInputDetected.Invoke(InputType.Guard, PlayerID.Player2);
-    }
-}
-public class InputConverter
-{
-    public static InputType ConvertInput(InputType input, bool facingLeft)
-    {
-        if (!facingLeft) return input; // 右向きの場合はそのまま
 
-        // 左向きの場合は左右を反転
-        switch (input)
-        {
-            case InputType.Left:
-                return InputType.Right;
-            case InputType.Right:
-                return InputType.Left;
-            default:
-                return input;
-        }
     }
 }
