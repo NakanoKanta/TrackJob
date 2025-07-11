@@ -5,7 +5,6 @@ public class Thrust : MonoBehaviour
 {
     public Animator _thurst;
     bool _hasMoved = false;
-    public PlayerController playerController;
 
     void Start()
     {
@@ -18,7 +17,6 @@ public class Thrust : MonoBehaviour
         // Thurstアニメーションが開始され、まだ移動していない場合
         if (stateInfo.IsName("Shoryuken") && !_hasMoved)
         {
-            Debug.Log("shoryuken");
             _hasMoved = true;
             MovePlayer();
         }
@@ -34,15 +32,9 @@ public class Thrust : MonoBehaviour
 
     void MovePlayer()
     {
-        // プレイヤーの向きを確認
-        int direction = 1; // 右向き
-        if (playerController != null && playerController.GetFacingLeft())
-        {
-            direction = -1; // 左向きなら反転
-        }
-
+        // 現在位置から相対的に移動
         Vector3 currentPos = transform.position;
-        Vector3 targetPos = currentPos + new Vector3(3 * direction, 0, 0); // ← 方向に応じて移動
+        Vector3 targetPos = currentPos + new Vector3(3, 0, 0);
         transform.DOMove(targetPos, 0.4f);
     }
 }

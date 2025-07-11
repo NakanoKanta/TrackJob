@@ -6,96 +6,32 @@ public class CharacterSpawn : MonoBehaviour
 {
     int p1 = SelectDataManager.CurrentData.Data1Index;
     int p2 = SelectDataManager.CurrentData.Data2Index;
-
-    [Header("キャラクターデータベース")]
-    public CharacterDatabase characterDatabase;
-
-    [Header("基本キャラクタープレハブ")]
-    public GameObject baseCharacterPrefab; // 基本となるキャラクタープレハブ
-
+    public GameObject hondou_prefab;
+    public GameObject miyamoto_prefab;
+    // Start is called before the first frame update
     void Start()
     {
-        GameObject player1 = null;
-        GameObject player2 = null;
-
-        // Player1のキャラクター生成
-        if (characterDatabase != null && p1 < characterDatabase.CharacterCount)
+        if (p1 == 1)
         {
-            CharacterData player1Data = characterDatabase.GetCharacter(p1);
-            player1 = CreateCharacter(player1Data, new Vector2(-8, 0), PlayerID.Player1);
+            Instantiate(hondou_prefab, new Vector2(-8, 0), Quaternion.identity);
         }
-
-        // Player2のキャラクター生成
-        if (characterDatabase != null && p2 < characterDatabase.CharacterCount)
+        if (p1 == 0)
         {
-            CharacterData player2Data = characterDatabase.GetCharacter(p2);
-            player2 = CreateCharacter(player2Data, new Vector2(8, 0), PlayerID.Player2);
+            Instantiate(miyamoto_prefab, new Vector2(-8, 0), Quaternion.identity);
         }
-
-        // FightingSystemを取得
-        FightingSystem fs1 = player1?.GetComponent<FightingSystem>();
-        FightingSystem fs2 = player2?.GetComponent<FightingSystem>();
-
-        // InputManagerを探してイベント登録
-        InputManager inputManager = FindObjectOfType<InputManager>();
-        if (inputManager != null)
+        if (p2 == 1)
         {
-            inputManager.OnInputDetected += (input, id) =>
-            {
-                if (id == PlayerID.Player1 && fs1 != null)
-                {
-                    fs1.OnInputReceived(input);
-                }
-                else if (id == PlayerID.Player2 && fs2 != null)
-                {
-                    fs2.OnInputReceived(input);
-                }
-            };
+            Instantiate(hondou_prefab, new Vector2(8, 0), Quaternion.identity);
         }
-        else
+        if (p2 == 0)
         {
-            Debug.LogError("InputManagerがシーン上に見つかりませんでした！");
+            Instantiate(miyamoto_prefab, new Vector2(8, 0), Quaternion.identity);
         }
     }
 
-
-    GameObject CreateCharacter(CharacterData characterData, Vector2 position, PlayerID playerID)
+    // Update is called once per frame
+    void Update()
     {
-        // 基本プレハブを生成
-        GameObject character = Instantiate(baseCharacterPrefab, position, Quaternion.identity);
-
-        // PlayerControllerコンポーネントを取得
-        PlayerController controller = character.GetComponent<PlayerController>();
-        if (controller == null)
-        {
-            controller = character.AddComponent<PlayerController>();
-        }
-
-        // キャラクターデータを設定
-        controller.SetCharacterData(characterData, playerID);
-
-        // FightingSystemコンポーネントを取得・設定
-        FightingSystem fightingSystem = character.GetComponent<FightingSystem>();
-        if (fightingSystem == null)
-        {
-            fightingSystem = character.AddComponent<FightingSystem>();
-        }
-
-        // FightingSystemの初期設定
-        fightingSystem.playerID = playerID;
-        fightingSystem.characterDatabase = characterDatabase;
-
-        // Animatorコンポーネントを取得して設定
-        Animator animator = character.GetComponent<Animator>();
-        if (animator != null)
-        {
-            fightingSystem.animator = animator;
-        }
-
-        // FightingSystemを初期化
-        fightingSystem.Initialize();
-
-        return character;
+        
     }
-
 }

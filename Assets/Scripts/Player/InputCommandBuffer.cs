@@ -6,6 +6,7 @@ public class InputCommandBuffer
     private List<InputData> _buffer = new List<InputData>();
     private float _timeWindow = 1.0f;
     private int _maxSize = 8;
+
     public void AddInput(InputType input)
     {
         _buffer.Add(new InputData(input, Time.time));
@@ -19,22 +20,15 @@ public class InputCommandBuffer
     public bool CheckCommand(InputType[] sequence)
     {
         if (_buffer.Count < sequence.Length) return false;
-
-        for (int start = 0; start <= _buffer.Count - sequence.Length; start++)
+        int start = _buffer.Count - sequence.Length;
+        for (int i = 0; i < sequence.Length; i++)
         {
-            bool match = true;
-            for (int i = 0; i < sequence.Length; i++)
+            if (_buffer[start + i]._type != sequence[i])
             {
-                if (_buffer[start + i]._type != sequence[i])
-                {
-                    match = false;
-                    break;
-                }
+                return false;
             }
-            if (match) return true;
         }
-
-        return false;
+        return true;
     }
 
     public void Clear() => _buffer.Clear();
