@@ -87,26 +87,23 @@ public class Counter : MonoBehaviour
         }
         else
         {
-            newScale.x = Mathf.Abs(originalParticleScale.x);  // 右向き時は正の値
-        }.x);  // 右向き時は正の値
+            newScale.x = Mathf.Abs(originalParticlePosition.x);  // 右向き時は正の値
         }
-
         particles.transform.position = newScale;
     }
-
     // PlayerControllerから向きを取得するヘルパーメソッド
     private bool GetFacingLeft()
-{
-    if (playerController != null)
     {
-        return playerController.facingLeft;
+        if (playerController != null)
+        {
+            return playerController.facingLeft;
+        }
+        // PlayerControllerが無い場合はtransform.localScaleで判定
+        return transform.position.x < 0;
     }
-    // PlayerControllerが無い場合はtransform.localScaleで判定
-    return transform.position.x < 0;
-}
 
-// キャラクターの向きを手動で設定する場合のヘルパーメソッド
-public void SetCharacterDirection(bool facingLeft)
+    // キャラクターの向きを手動で設定する場合のヘルパーメソッド
+    public void SetCharacterDirection(bool facingLeft)
     {
         if (playerController != null)
         {
