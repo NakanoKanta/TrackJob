@@ -1,20 +1,22 @@
-[System.Serializable]
-public enum InputType
-{
-    Down,
-    Up,
-    Left,
-    Right,
-    Punch,
-    Guard,
-}
+using UnityEditor.Experimental.GraphView;
 
-[System.Serializable]
-public enum PlayerID
-{
-    Player1,
-    Player2
-}
+//[System.Serializable]
+//public enum InputType
+//{
+//    Down,
+//    Up,
+//    Left,
+//    Right,
+//    Punch,
+//    Guard,
+//}
+
+//[System.Serializable]
+//public enum PlayerID
+//{
+//    Player1,
+//    Player2
+//}
 
 [System.Serializable]
 public struct InputData
@@ -28,10 +30,10 @@ public struct InputData
     }
 }
 
-[System.Serializable]
-public struct Command
-{
-    public string _name;
-    public InputType[] _inputs;
-    public string _animation;
-}
+//[System.Serializable]
+//public struct Command
+//{
+//    public string _name;
+//    public InputType[] _inputs;
+//    public string _animation;
+//}
