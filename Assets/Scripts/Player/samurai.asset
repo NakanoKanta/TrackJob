@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f98e2dac06700144903a65f98ff8ea5, type: 3}
+  m_Name: samurai
+  m_EditorClassIdentifier: 
+  characterName: samurai
+  characterImage: {fileID: 1976152944, guid: 16628a0c4cde24048b8b2ad7d16c4aa2, type: 3}
+  characterPrefab: {fileID: 2979651967230263373, guid: 602ca4ec4c2d5234c87752b704593426, type: 3}
+  Commands:
+  - _name: Slash
+    _inputs: 010000000300000004000000
+    _animation: Hadoken
+    damage: 0
+  - _name: Thurst
+    _inputs: 030000000100000004000000
+    _animation: Shoryuken
+    damage: 0
+  - _name: Counter
+    _inputs: 0100000003000000010000000300000004000000
+    _animation: Counter
+    damage: 0
+  health: 100
+  attack: 10
+  speed: 1
+  animatorController: {fileID: 9100000, guid: a3337d96f22d5bb4b91696ba07f17c40, type: 2}

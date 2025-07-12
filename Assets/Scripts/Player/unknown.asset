@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f98e2dac06700144903a65f98ff8ea5, type: 3}
+  m_Name: unknown
+  m_EditorClassIdentifier: 
+  characterName: unknown
+  characterImage: {fileID: 913517118, guid: cc7be26b097b5374e929622fdbd66f7e, type: 3}
+  characterPrefab: {fileID: 7787546546455684198, guid: 86553a87b5053304498f957c50942784, type: 3}
+  Commands:
+  - _name: Stels
+    _inputs: 010000000300000004000000
+    _animation: Stels
+    damage: 0
+  - _name: Light
+    _inputs: 030000000100000004000000
+    _animation: Shoryuken
+    damage: 0
+  - _name: Purple
+    _inputs: 0100000003000000010000000300000004000000
+    _animation: SinkuHadoken
+    damage: 0
+  health: 100
+  attack: 10
+  speed: 1
+  animatorController: {fileID: 9100000, guid: 12b9bac76b071664d981e5bffcae8d04, type: 2}
