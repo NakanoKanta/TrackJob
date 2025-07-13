@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7101704374305846619}
   - component: {fileID: -3478549532776927441}
   - component: {fileID: -2006926317305367462}
+  - component: {fileID: 5970948708559003262}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -204,10 +205,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: c678851c1bf28ee418c056d04e6d1a21, type: 2}
   playerID: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 8231135083415630877}
   isFacingRight: 1
   autoFindOpponent: 1
   opponentTag: Player
+  _moveSpeed: 100
+  _jumpForce: 10
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  _groundCheckDistance: 10
 --- !u!114 &-3478549532776927441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +276,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.34}
   m_EdgeRadius: 0
+--- !u!50 &5970948708559003262
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979651967230263373}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1001 &7099948006456229281
 PrefabInstance:
   m_ObjectHideFlags: 0

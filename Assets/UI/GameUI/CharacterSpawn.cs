@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterSpawn : MonoBehaviour
 {
-    int p1 = SelectDataManager.CurrentData.Data1Index;
-    int p2 = SelectDataManager.CurrentData.Data2Index;
+    public int p1 = SelectDataManager.CurrentData.Data1Index;
+    public int p2 = SelectDataManager.CurrentData.Data2Index;
 
     [Header("キャラクターデータベース")]
     public CharacterDatabase characterDatabase;
