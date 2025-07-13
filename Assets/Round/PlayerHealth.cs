@@ -6,40 +6,54 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] int _maxHP = 100;
-    [SerializeField] int _playerHP;
-    [SerializeField] int _playerNumber = 0;
+    private int _playerHP;
+    private PlayerID _playerID;
     private bool isDead = false;
-    [SerializeField] Slider _playerHpBar;
+
+    private Image _playerHpBar;
+
     void Start()
     {
         _playerHP = _maxHP;
-        if(_playerHpBar != null)
-        {
-            _playerHpBar.maxValue = _playerHP;
-            _playerHpBar.value = _playerHP;
-        }
+
+        //–¼‘O‚©‚ç PlayerID ‚ğ©“®”»’è
+        _playerID = gameObject.name.Contains("1") ? PlayerID.Player1 : PlayerID.Player2;
+
+        _playerHpBar = HPBarManager.Instance.GetHPBar(_playerID);
+        UpdateHPBar();
     }
+
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
         _playerHP -= damage;
         _playerHP = Mathf.Max(_playerHP, 0);
-        if (_playerHpBar != null)
-        {
-            _playerHpBar.value = _playerHP;
-        } 
+
+        UpdateHPBar();
 
         if (_playerHP <= 0)
         {
             Die();
         }
     }
+
+    void UpdateHPBar()
+    {
+        if (_playerHpBar != null)
+        {
+            _playerHpBar.fillAmount = (float)_playerHP / _maxHP;
+        }
+    }
+
     void Die()
     {
         isDead = true;
-        int WinPlayer = (_playerNumber == 1) ? 2 : 1;
-        FindObjectOfType<RoundManager>().OnRoundEnd(WinPlayer);
-    }
 
+        //ŸÒ‚ğ PlayerID Œ^‚Åæ“¾
+        PlayerID winner = (_playerID == PlayerID.Player1) ? PlayerID.Player2 : PlayerID.Player1;
+
+        // PlayerID ‚ğ“n‚·‚æ‚¤‚É•ÏX
+        FindObjectOfType<RoundManager>().OnRoundEnd(winner);
+    }
 }
