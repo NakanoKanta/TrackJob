@@ -15,6 +15,10 @@ public class CharacterSpawn : MonoBehaviour
 
     void Start()
     {
+        // PlayerPrefsから選択されたキャラクターのインデックスを取得
+        p1 = PlayerPrefs.GetInt("Player1CharacterIndex", 0);
+        p2 = PlayerPrefs.GetInt("Player2CharacterIndex", 0);
+
         GameObject player1 = null;
         GameObject player2 = null;
 
@@ -97,5 +101,4 @@ public class CharacterSpawn : MonoBehaviour
 
         return character;
     }
-
 }
