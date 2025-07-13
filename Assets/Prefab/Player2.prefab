@@ -209,12 +209,9 @@ MonoBehaviour:
   isFacingRight: 1
   autoFindOpponent: 1
   opponentTag: Player
-  _moveSpeed: 100
+  _moveSpeed: 5
   _jumpForce: 10
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  _groundCheckDistance: 10
+  _groundTag: Ground
 --- !u!114 &-3478549532776927441
 MonoBehaviour:
   m_ObjectHideFlags: 0

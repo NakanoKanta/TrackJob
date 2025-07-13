@@ -21,13 +21,13 @@ public class PlayerController : MonoBehaviour
     [Header("移動設定")]
     public float _moveSpeed = 5f;           // 移動速度
     public float _jumpForce = 10f;          // ジャンプ力
-    public LayerMask _groundLayer = 1;      // 地面のレイヤー
-    public float _groundCheckDistance = 0.1f; // 地面チェックの距離
+    public string _groundTag = "Ground";    // 地面のタグ
 
     private Rigidbody2D _rb;
     private bool _isGrounded;
     private float _horizontal;
     private bool jumpInput;
+    private Animator _animator;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GetInput();
-        CheckGrounded();
+        UpdateAnimationParameters();
         // 相手が設定されていれば向き合う
         if (opponent != null)
         {
@@ -73,19 +73,20 @@ public class PlayerController : MonoBehaviour
         {
             // Player1: WASD入力
             _horizontal = 0f;
-            if (Input.GetKeyDown(KeyCode.A)) _horizontal = -1f;
-            if (Input.GetKeyDown(KeyCode.D)) _horizontal = 1f;
+            if (Input.GetKey(KeyCode.A)) _horizontal = -1f;  // GetKeyDown → GetKey
+            if (Input.GetKey(KeyCode.D)) _horizontal = 1f;   // GetKeyDown → GetKey
             jumpInput = Input.GetKeyDown(KeyCode.W);
         }
         else if (playerID == PlayerID.Player2)
         {
             // Player2: IJKL入力
             _horizontal = 0f;
-            if (Input.GetKeyDown(KeyCode.J)) _horizontal = -1f;
-            if (Input.GetKeyDown(KeyCode.L)) _horizontal = 1f;
+            if (Input.GetKey(KeyCode.J)) _horizontal = -1f;  // GetKeyDown → GetKey
+            if (Input.GetKey(KeyCode.L)) _horizontal = 1f;   // GetKeyDown → GetKey
             jumpInput = Input.GetKeyDown(KeyCode.I);
         }
     }
+
     /// <summary>
     /// 移動処理
     /// </summary>
@@ -93,10 +94,11 @@ public class PlayerController : MonoBehaviour
     {
         if (_rb != null)
         {
-            // 水平移動
-            _rb.velocity = new Vector2(_horizontal * _moveSpeed, _rb.velocity.x);
+            // 水平移動（velocity.x → velocity.yに修正）
+            _rb.velocity = new Vector2(_horizontal * _moveSpeed, _rb.velocity.y);
         }
     }
+
     /// <summary>
     /// ジャンプ処理
     /// </summary>
@@ -104,18 +106,60 @@ public class PlayerController : MonoBehaviour
     {
         if (_rb != null)
         {
-            _rb.velocity = new Vector2(_rb.velocity.y, _jumpForce);
+            // ジャンプ（velocity.y → velocity.xに修正）
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+        }
+    }
+    private void UpdateAnimationParameters()
+    {
+        if (_animator != null)
+        {
+            // 地面にいるかどうかでアニメーターの有効/無効を切り替え
+            _animator.enabled = _isGrounded;
+
+            // 地面にいる場合のみアニメーションパラメータを更新
+            if (_isGrounded)
+            {
+                _animator.SetTrigger("SinkuHadoken");
+                _animator.SetTrigger("hadoken");
+                _animator.SetTrigger("Shoryuken");
+            }
         }
     }
     /// <summary>
-    /// 地面チェック
+    /// 地面との接触判定（Collision使用）
     /// </summary>
-    private void CheckGrounded()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // キャラクターの足元から下向きにレイキャストを飛ばす
-        Vector2 raycastOrigin = new Vector2(transform.position.x, transform.position.y - GetComponent<Collider2D>().bounds.size.y / 2);
-        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, _groundCheckDistance, _groundLayer);
-        _isGrounded = hit.collider != null;
+        // 地面タグのオブジェクトと接触した場合
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = true;
+        }
+    }
+
+    /// <summary>
+    /// 地面から離れた時の処理
+    /// </summary>
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // 地面タグのオブジェクトから離れた場合
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = false;
+        }
+    }
+
+    /// <summary>
+    /// 地面に接触している間の処理
+    /// </summary>
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // 地面タグのオブジェクトに接触し続けている場合
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = true;
+        }
     }
     /// <summary>
     /// キャラクターデータを設定
