@@ -6,25 +6,35 @@ public class AttackHitbox : MonoBehaviour
 {
     [SerializeField] int _damage = 0;
     private bool hasHit = false;
-    public float _invalidTime = 0.2f;
-
+    public float _invalidTime = 0.1f;
+    public void ResetHit()
+    {
+        hasHit = false;
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (hasHit) return; // すでにヒットしてたら無視
-        PlayerHealth enemyHealth = other.GetComponent<PlayerHealth>();
-        if (enemyHealth != null)
+        if (other.CompareTag("Player"))
         {
-            enemyHealth.TakeDamage(_damage);
-            hasHit = true;
-            StartCoroutine(DisableHitboxTemporarily());
+            if (hasHit) return; // すでにヒットしてたら無視
+            Debug.Log("Hit!");
+            PlayerHealth enemyHealth = other.GetComponent<PlayerHealth>();
+            if (enemyHealth != null)
+            {
 
+                enemyHealth.TakeDamage(_damage);
+                //Debug.Log("現在のHP" + enemyHealth._playerHP);
+                hasHit = true;
+                StartCoroutine(DisableHitboxTemporarily());
+                Debug.Log(hasHit);
+            }
         }
     }
     private System.Collections.IEnumerator DisableHitboxTemporarily()
     {
-        gameObject.SetActive(false);
+        Debug.Log("コルーチン開始");
+        GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(_invalidTime);
-        gameObject.SetActive(true);
-        hasHit = false;
+        GetComponent<Collider2D>().enabled = true;
+        Debug.Log("コルーチン終わり");
     }
 }
