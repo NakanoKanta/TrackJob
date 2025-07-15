@@ -1,40 +1,47 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
-    [SerializeField] int _damage = 0;
+    [SerializeField] private int _damage = 5;            // ダメージ量は小さめに調整
+    [SerializeField] private float _invalidTime = 0.2f;  // 攻撃判定無効時間（連続ヒット防止）
+
     private bool hasHit = false;
-    public float _invalidTime = 0.1f;
+    private GameObject owner; // 攻撃主
+
+    public void SetOwner(GameObject ownerObject)
+    {
+        owner = ownerObject;
+    }
+
     public void ResetHit()
     {
         hasHit = false;
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (hasHit) return; // すでにヒットしてたら無視
-            Debug.Log("Hit!");
-            PlayerHealth enemyHealth = other.GetComponent<PlayerHealth>();
-            if (enemyHealth != null)
-            {
 
-                enemyHealth.TakeDamage(_damage);
-                //Debug.Log("現在のHP" + enemyHealth._playerHP);
-                hasHit = true;
-                StartCoroutine(DisableHitboxTemporarily());
-                Debug.Log(hasHit);
-            }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (hasHit) return;
+
+        if (!other.CompareTag("Player")) return;
+
+        // 自分自身(owner)にはヒットさせない
+        if (owner != null && other.gameObject == owner) return;
+
+        PlayerHealth enemyHealth = other.GetComponent<PlayerHealth>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(_damage);
+            hasHit = true;
+            StartCoroutine(DisableHitboxTemporarily());
         }
     }
-    private System.Collections.IEnumerator DisableHitboxTemporarily()
+
+    private IEnumerator DisableHitboxTemporarily()
     {
-        Debug.Log("コルーチン開始");
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(_invalidTime);
         GetComponent<Collider2D>().enabled = true;
-        Debug.Log("コルーチン終わり");
+        hasHit = false;
     }
 }

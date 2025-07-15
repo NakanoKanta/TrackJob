@@ -1,43 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitBoxManager : MonoBehaviour
 {
-    [Header("対象の FightingSystem")]
+    [Header("対象の FightingSystem（任意）")]
     public FightingSystem fightingSystem;
 
-    [Header("コマンドに対応したオブジェクト")]
+    [Header("コマンドに対応したオブジェクト（子オブジェクトで管理）")]
     public GameObject sinkuHadokenObject;
     public GameObject hadokenObject;
     public GameObject shoryukenObject;
 
-    public Animator animator;
+    private Animator animator;
 
     private bool hasActivatedSinku = false;
     private bool hasActivatedHadoken = false;
     private bool hasActivatedShoryuken = false;
 
-    private AttackHitbox sinkuHitbox;
-    private AttackHitbox hadokenHitbox;
-    private AttackHitbox shoryukenHitbox;
-
     void Start()
     {
-        // 初期化：オブジェクト無効化
-        sinkuHadokenObject.SetActive(false);
-        hadokenObject.SetActive(false);
-        shoryukenObject.SetActive(false);
+        animator = GetComponent<Animator>();
 
-        // ヒットボックスの参照取得
-        sinkuHitbox = sinkuHadokenObject.GetComponent<AttackHitbox>();
-        hadokenHitbox = hadokenObject.GetComponent<AttackHitbox>();
-        shoryukenHitbox = shoryukenObject.GetComponent<AttackHitbox>();
-
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
+        if (sinkuHadokenObject != null) sinkuHadokenObject.SetActive(false);
+        if (hadokenObject != null) hadokenObject.SetActive(false);
+        if (shoryukenObject != null) shoryukenObject.SetActive(false);
     }
 
     void Update()
@@ -46,43 +31,67 @@ public class HitBoxManager : MonoBehaviour
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // SinkuHadoken（Counter アニメーション）
+        // SinkuHadoken
         if (stateInfo.IsName("Counter") && !hasActivatedSinku)
         {
-            sinkuHadokenObject.SetActive(true);
-            sinkuHitbox?.ResetHit();
+            ActivateAttackObject(sinkuHadokenObject);
             hasActivatedSinku = true;
         }
         else if (!stateInfo.IsName("Counter"))
         {
-            sinkuHadokenObject.SetActive(false);
+            DeactivateAttackObject(sinkuHadokenObject);
             hasActivatedSinku = false;
         }
 
         // Hadoken
         if (stateInfo.IsName("Hadoken") && !hasActivatedHadoken)
         {
-            hadokenObject.SetActive(true);
-            hadokenHitbox?.ResetHit();
+            ActivateAttackObject(hadokenObject);
             hasActivatedHadoken = true;
         }
         else if (!stateInfo.IsName("Hadoken"))
         {
-            hadokenObject.SetActive(false);
+            DeactivateAttackObject(hadokenObject);
             hasActivatedHadoken = false;
         }
 
         // Shoryuken
         if (stateInfo.IsName("Shoryuken") && !hasActivatedShoryuken)
         {
-            shoryukenObject.SetActive(true);
-            shoryukenHitbox?.ResetHit();
+            ActivateAttackObject(shoryukenObject);
             hasActivatedShoryuken = true;
         }
         else if (!stateInfo.IsName("Shoryuken"))
         {
-            shoryukenObject.SetActive(false);
+            DeactivateAttackObject(shoryukenObject);
             hasActivatedShoryuken = false;
         }
+    }
+
+    private void ActivateAttackObject(GameObject attackObject)
+    {
+        if (attackObject == null) return;
+
+        attackObject.SetActive(true);
+
+        AttackHitbox hitbox = attackObject.GetComponent<AttackHitbox>();
+        if (hitbox != null)
+        {
+            hitbox.SetOwner(gameObject);
+            hitbox.ResetHit();  // 攻撃判定リセット
+        }
+    }
+
+    private void DeactivateAttackObject(GameObject attackObject)
+    {
+        if (attackObject == null) return;
+
+        AttackHitbox hitbox = attackObject.GetComponent<AttackHitbox>();
+        if (hitbox != null)
+        {
+            hitbox.ResetHit();  // 攻撃判定リセット
+        }
+
+        attackObject.SetActive(false);
     }
 }

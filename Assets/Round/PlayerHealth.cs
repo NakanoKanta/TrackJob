@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,19 +5,45 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] int _maxHP = 100;
     private int _playerHP;
-    private PlayerID _playerID;
-    private bool isDead = false;
+
+    [SerializeField] private PlayerID _playerID;  // Inspectorにセットされていないなら0(デフォルト)
 
     private Image _playerHpBar;
+
+    private bool isDead = false;
 
     void Start()
     {
         _playerHP = _maxHP;
 
-        //名前から PlayerID を自動判定
-        _playerID = gameObject.name.Contains("1") ? PlayerID.Player1 : PlayerID.Player2;
+        // PlayerIDがデフォルト値なら親から探す（PlayerControllerかFightingSystemのplayerID）
+        if (_playerID == 0)
+        {
+            PlayerController pc = GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                _playerID = pc.playerID;
+            }
+            else
+            {
+                FightingSystem fs = GetComponent<FightingSystem>();
+                if (fs != null)
+                {
+                    _playerID = fs.playerID;
+                }
+                else
+                {
+                    Debug.LogError($"{gameObject.name} の PlayerID が設定されていません。PlayerControllerかFightingSystemを確認してください。");
+                }
+            }
+        }
 
         _playerHpBar = HPBarManager.Instance.GetHPBar(_playerID);
+        if (_playerHpBar == null)
+        {
+            Debug.LogError($"HPバーがPlayerID {_playerID} に対して見つかりません");
+        }
+
         UpdateHPBar();
     }
 
@@ -38,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void UpdateHPBar()
+    private void UpdateHPBar()
     {
         if (_playerHpBar != null)
         {
@@ -46,14 +70,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         isDead = true;
 
-        //勝者を PlayerID 型で取得
         PlayerID winner = (_playerID == PlayerID.Player1) ? PlayerID.Player2 : PlayerID.Player1;
 
-        // PlayerID を渡すように変更
         FindObjectOfType<RoundManager>().OnRoundEnd(winner);
     }
 }

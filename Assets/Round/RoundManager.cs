@@ -73,7 +73,7 @@ public class RoundManager : MonoBehaviour
 
     public void FinishRound(PlayerID winner)
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         Debug.Log($"Š®‘SŸ—˜: Player {(winner == PlayerID.Player1 ? "1" : "2")}");
 
         _player1Wins = 0;

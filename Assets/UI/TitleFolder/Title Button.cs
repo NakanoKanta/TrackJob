@@ -8,6 +8,6 @@ public class TitleButton : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("CharacterSelection");
     }
 }

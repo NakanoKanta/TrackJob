@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2341401699818061347}
   - component: {fileID: 5629335216437942019}
   - component: {fileID: 6053697551677809030}
+  - component: {fileID: 6929766612396807298}
   m_Layer: 0
   m_Name: Hadoken
   m_TagString: Untagged
@@ -92,6 +93,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 15
   _invalidTime: 0.1
+--- !u!114 &6929766612396807298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651275538093333337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7aed1ec53bf86469c95c634cfdcd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2979651967230263373
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,8 +124,8 @@ GameObject:
   - component: {fileID: -3478549532776927441}
   - component: {fileID: -2006926317305367462}
   - component: {fileID: 5970948708559003262}
-  - component: {fileID: -8714222054580567938}
   - component: {fileID: 3741022308564034311}
+  - component: {fileID: 8622896938747524677}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -397,19 +410,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-8714222054580567938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2979651967230263373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f280f41a717ddb942a4e065d92963b81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHP: 100
 --- !u!114 &3741022308564034311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +426,20 @@ MonoBehaviour:
   sinkuHadokenObject: {fileID: 5679954907748516300}
   hadokenObject: {fileID: 2651275538093333337}
   shoryukenObject: {fileID: 4344422011126217729}
-  animator: {fileID: 7246020114738100166}
+--- !u!114 &8622896938747524677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979651967230263373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f280f41a717ddb942a4e065d92963b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHP: 100
+  _playerID: 0
 --- !u!1 &4344422011126217729
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +451,7 @@ GameObject:
   - component: {fileID: 6603268752367524352}
   - component: {fileID: 4810031035586633118}
   - component: {fileID: 5888723586090309888}
+  - component: {fileID: 8171254425117313435}
   m_Layer: 0
   m_Name: Shoryuken
   m_TagString: Untagged
@@ -519,6 +533,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 10
   _invalidTime: 0.1
+--- !u!114 &8171254425117313435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344422011126217729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7aed1ec53bf86469c95c634cfdcd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5679954907748516300
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +556,7 @@ GameObject:
   - component: {fileID: 3912242096312986523}
   - component: {fileID: 6608402418364982146}
   - component: {fileID: 7883673982176878045}
+  - component: {fileID: 8419873528298397370}
   m_Layer: 0
   m_Name: SinkuHadoken
   m_TagString: Untagged
@@ -611,6 +638,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 20
   _invalidTime: 0.1
+--- !u!114 &8419873528298397370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679954907748516300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7aed1ec53bf86469c95c634cfdcd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7099948006456229281
 PrefabInstance:
   m_ObjectHideFlags: 0
